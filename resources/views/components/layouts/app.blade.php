@@ -31,8 +31,6 @@
 </head>
 <body class="bg-gray-50 p-6">
     {{ $slot }}
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
     @livewireScripts
 </body>
 </html>
