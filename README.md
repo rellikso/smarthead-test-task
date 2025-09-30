@@ -1,61 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ticket Widget — Полная документация
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Описание
 
-## About Laravel
+Guest Ticket Widget позволяет **неавторизованным Customer** отправлять тикеты через форму с возможностью прикреплять файлы.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Особенности:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Поля: `name`, `email`, `phone` (формат E.164), `subject`, `text`
+- Создание Customer, если он не существует
+- Прикрепление нескольких файлов
+- Валидация через отдельный `FormRequest`
+- Сохранение файлов через `spatie/laravel-medialibrary`
+- Развёртывание через iframe
+- Стилизация под основную тему проекта
+- Лёгкая интеграция с Livewire и API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 1. Установка и миграции
 
-## Learning Laravel
+### Установить зависимости
+composer install
+npm install && npm run dev
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Миграции и сидеры
+php artisan migrate
+php artisan db:seed
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Запустить локальный сервер
+php artisan serve
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Тестовые данные
+Находятся в файлах сидеров в папке database\seeders.
+Перечень:
 
-## Laravel Sponsors
+- RolePermissionSeeder;
+- UserSeeder;
+- CustomerSeeder;
+- TicketSeeder;
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Пример вставки виджета.
+```
+<iframe src="https://your-site.com/widget" width="100%" height="700" frameborder="0"></iframe>
+```
 
-### Premium Partners
+## Пример API-запроса.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+https://your-site.com/api/widget
 
-## Contributing
+{
+"_token": "GO3VTbjZDdZcISqcMSgRauc3baJ8aXkzKgkftb2f",
+"components": [
+{
+"snapshot": "{\"data\":{\"name\":\"htjythjyrtr\",\"email\":\"test@test.com\",\"phone\":\"+1234567890123\",\"subject\":\"gewrgfwrfw\",\"text\":\"yhy5hg54eg54\",\"files\":[[[\"livewire-file:R7IBkkZDd3M2HFfAXZBepUMqtNPSvD-metaNjk2RDhCMTBCQzEyREYwQjA3QzRGRTkxMTFCNTBCNzZfc2hhcmVfMC5qcGc=-.jpg\",{\"s\":\"fil\"}]],{\"s\":\"arr\"}]},\"memo\":{\"id\":\"lpXMkzlmnLjoHSI4Kcja\",\"name\":\"ticket-widget\",\"path\":\"widget\",\"method\":\"GET\",\"children\":[],\"scripts\":[],\"assets\":[],\"errors\":[],\"locale\":\"ru\"},\"checksum\":\"cb87731399edcb08d25e88b6e32a77db5b9a87905559c27ac9ecc21fdc3db57d\"}",
+"updates": {},
+"calls": [
+{
+"path": "",
+"method": "submit",
+"params": []
+}
+]
+}
+]
+}
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Ответ
+{
+"components": [
+{
+"snapshot": "{\"data\":{\"name\":null,\"email\":null,\"phone\":null,\"subject\":null,\"text\":null,\"files\":[[],{\"s\":\"arr\"}]},\"memo\":{\"id\":\"lpXMkzlmnLjoHSI4Kcja\",\"name\":\"ticket-widget\",\"path\":\"widget\",\"method\":\"GET\",\"children\":[],\"scripts\":[],\"assets\":[],\"errors\":[],\"locale\":\"ru\"},\"checksum\":\"c58a70c4d66722dd731936b9c45ab7b55ebbcd4c428761b90b087345c6eaae49\"}",
+"effects": {
+"returns": [
+null
+],
+"html": "<div wire:id=\"lpXMkzlmnLjoHSI4Kcja\" x-data=\"{ open: false }\" class=\"max-w-lg mx-auto\">\n\n    <!-- \u041a\u043d\u043e\u043f\u043a\u0430 \u0440\u0430\u0441\u043a\u0440\u044b\u0442\u0438\u044f -->\n    <button @click=\"open = !open\"\n            class=\"widget-button w-full px-4 py-2 rounded font-semibold transition-colors\">\n        <span x-text=\"open ? '\u0421\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u0444\u043e\u0440\u043c\u0443 \u0442\u0438\u043a\u0435\u0442\u0430' : '\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0442\u0438\u043a\u0435\u0442'\"><\/span>\n    <\/button>\n\n    <!-- \u0424\u043e\u0440\u043c\u0430 -->\n    <div x-show=\"open\" x-transition class=\"widget-form mt-4 p-6\">\n        <h2 class=\"text-xl font-semibold mb-4 text-gray-800\">\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0442\u0438\u043a\u0435\u0442<\/h2>\n\n        <!--[if BLOCK]><![endif]-->            <div class=\"mb-4 text-green-600 font-semibold\">\u0422\u0438\u043a\u0435\u0442 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d!<\/div>\n        <!--[if ENDBLOCK]><![endif]-->\n\n        <!--[if ENDBLOCK]><![endif]-->\n\n        <!-- \u041f\u043e\u043b\u044f \u0444\u043e\u0440\u043c\u044b -->\n        <!--[if BLOCK]><![endif]-->            <div class=\"mb-3\">\n                <label class=\"block text-gray-700 mb-1\">\u0418\u043c\u044f<\/label>\n                <input type=\"text\"\n                       wire:model=\"name\"\n                       class=\"border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500\">\n                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n            <\/div>\n                    <div class=\"mb-3\">\n                <label class=\"block text-gray-700 mb-1\">Email<\/label>\n                <input type=\"email\"\n                       wire:model=\"email\"\n                       class=\"border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500\">\n                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n            <\/div>\n                    <div class=\"mb-3\">\n                <label class=\"block text-gray-700 mb-1\">\u0422\u0435\u043b\u0435\u0444\u043e\u043d (E.164)<\/label>\n                <input type=\"text\"\n                       wire:model=\"phone\"\n                       class=\"border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500\">\n                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n            <\/div>\n                    <div class=\"mb-3\">\n                <label class=\"block text-gray-700 mb-1\">\u0422\u0435\u043c\u0430<\/label>\n                <input type=\"text\"\n                       wire:model=\"subject\"\n                       class=\"border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500\">\n                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n            <\/div>\n        <!--[if ENDBLOCK]><![endif]-->\n\n        <!-- \u0422\u0435\u043a\u0441\u0442 -->\n        <div class=\"mb-3\">\n            <label class=\"block text-gray-700 mb-1\">\u0422\u0435\u043a\u0441\u0442<\/label>\n            <textarea wire:model=\"text\" class=\"border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500\"><\/textarea>\n            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n        <\/div>\n\n        <!-- \u0424\u0430\u0439\u043b\u044b -->\n        <div class=\"mb-3\">\n            <label class=\"block text-gray-700 mb-1\">\u0424\u0430\u0439\u043b\u044b<\/label>\n            <input type=\"file\" wire:model=\"files\" multiple\n                   class=\"border border-gray-300 rounded px-3 py-2 w-full\">\n            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\n            <div wire:loading wire:target=\"files\" class=\"text-gray-500 mt-1\">\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430...<\/div>\n        <\/div>\n\n        <button wire:click=\"submit\"\n                class=\"w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition-colors\">\n            \u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0442\u0438\u043a\u0435\u0442\n        <\/button>\n    <\/div>\n\n<\/div>\n",
+"partials": []
+}
+}
+],
+"assets": []
+}
